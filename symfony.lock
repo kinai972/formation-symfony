@@ -82,8 +82,25 @@
     "egulias/email-validator": {
         "version": "3.1.2"
     },
+    "fakerphp/faker": {
+        "version": "v1.19.0"
+    },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
+    },
+    "hautelook/alice-bundle": {
+        "version": "2.10",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "2.1",
+            "ref": "ff94d76b2ec0c552b5d67d401f59ab8fd62f3d5f"
+        },
+        "files": [
+            "./config/packages/dev/hautelook_alice.yaml",
+            "./config/packages/test/hautelook_alice.yaml",
+            "./fixtures/.gitignore"
+        ]
     },
     "laminas/laminas-code": {
         "version": "4.5.1"
