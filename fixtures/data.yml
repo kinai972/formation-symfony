@@ -16,8 +16,10 @@ App\Entity\Ingredient:
     price: "<randomFloat(2, 0.1, 1.0)>"
 
 App\Entity\Dish:
-  name: "<word()>"
-  description: "<paragraph()>"
-  price: "<randomFloat(2, 0.1, 1.0)>"
-  image: "<imageUrl(640, 480, 'dish type')>"
-  type: "<word()>"
+  random_dish{1..10}:
+    name: "<word()>"
+    description: "<paragraph()>"
+    price: "<randomFloat(2, 8, 15)>"
+    image: "<imageUrl(640, 480, 'type')>"
+    type: "<word()>"
+    ingredients: "<numberBetween(4, 10)>x @ingredient_aleatoire_*"
