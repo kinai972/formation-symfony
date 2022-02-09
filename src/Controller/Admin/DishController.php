@@ -2,8 +2,10 @@
 
 namespace App\Controller\Admin;
 
+use App\DTO\SearchDishCriteria;
 use App\Entity\Dish;
 use App\Form\DishType;
+use App\Form\SearchDishType;
 use App\Repository\DishRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,10 +17,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class DishController extends AbstractController
 {
     #[Route('/', name: 'admin_dish_index', methods: ['GET'])]
-    public function index(DishRepository $dishRepository): Response
+    public function index(DishRepository $dishRepository, Request $request): Response
     {
+        $criteria = new SearchDishCriteria();
+
+        $form = $this->createForm(SearchDishType::class, $criteria)
+            ->handleRequest($request)
+            ->createView();
+
         return $this->render('admin/dish/index.html.twig', [
-            'dishes' => $dishRepository->findAll(),
+            'dishes'    => $dishRepository->findAllByCriteria($criteria),
+            'form'      => $form,
         ]);
     }
 
@@ -71,7 +80,7 @@ class DishController extends AbstractController
     #[Route('/{id}', name: 'admin_dish_delete', methods: ['POST'])]
     public function delete(Request $request, Dish $dish, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$dish->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $dish->getId(), $request->request->get('_token'))) {
             $entityManager->remove($dish);
             $entityManager->flush();
         }
