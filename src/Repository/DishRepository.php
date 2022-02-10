@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\DTO\SearchDishCriteria;
 use App\Entity\Dish;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -17,6 +18,70 @@ class DishRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Dish::class);
+    }
+
+    public function findAllByCriteria(SearchDishCriteria $criteria): array
+    {
+        $qb = $this->createQueryBuilder('dish');
+
+        if ($criteria->title) {
+            $qb
+                ->andWhere('dish.name LIKE :title')
+                ->setParameter('title', '%' . $criteria->title . '%');
+        }
+
+        return $qb
+            ->setMaxResults($criteria->limit)
+            ->setFirstResult($criteria->limit * ($criteria->page - 1))
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findFivteenWithTomato(): array
+    {
+        return $this->createQueryBuilder('dish')
+            ->setMaxResults(15)
+            ->leftJoin('dish.ingredients', 'ingredient')
+            ->andWhere('ingredient.name = :ingredientName')
+            ->setParameter('ingredientName', 'tomate')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findTenOfPageTwoOrderedByPrice(): array
+    {
+        return $this->createQueryBuilder('dish')
+            ->orderBy('dish.price', 'DESC')
+            ->setMaxResults(10)
+            ->setFirstResult(10)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findFiveOrderedByName(): array
+    {
+        return $this->createQueryBuilder('dish')
+            ->orderBy('dish.name', 'ASC')
+            ->setMaxResults(5)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findAllLikePizza(): array
+    {
+        return $this->createQueryBuilder('dish')
+            ->andWhere('dish.name LIKE :like')
+            ->setParameter('like', 'Pizza%')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findAllOrderedByPrice(): array
+    {
+        return $this->createQueryBuilder('dish')
+            ->orderBy('dish.price', 'ASC')
+            ->getQuery()
+            ->getResult();
     }
 
     // /**

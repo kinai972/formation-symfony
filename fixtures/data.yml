@@ -1,6 +1,6 @@
 App\Entity\Ingredient:
   tomate:
-    name: "Tomate"
+    name: "tomate"
     price: 0.1
   champignons:
     name: "Champignons"
@@ -16,10 +16,41 @@ App\Entity\Ingredient:
     price: "<randomFloat(2, 0.1, 1.0)>"
 
 App\Entity\Dish:
-  random_dish{1..10}:
-    name: "<word()>"
+  pizza_tomate:
+    name: "Pizza Tomate"
     description: "<paragraph()>"
-    price: "<randomFloat(2, 8, 15)>"
-    image: "<imageUrl(640, 480, 'type')>"
-    type: "<word()>"
-    ingredients: "<numberBetween(4, 10)>x @ingredient_aleatoire_*"
+    price: "<randomFloat(2, 8, 13)>"
+    image: "<imageUrl(640, 480, 'Pizza')>"
+    type: "Pizza"
+    ingredients: ["@tomate"]
+  pizza_{1..10}:
+    name: "Pizza <word()>"
+    description: "<paragraph()>"
+    price: "<randomFloat(2, 8, 13)>"
+    image: "<imageUrl(640, 480, 'Pizza')>"
+    type: "Pizza"
+    ingredients: "<numberBetween(2, 5)>x @ingredient_aleatoire_*"
+  boisson_{1..5}:
+    name: "Boisson <word()>"
+    description: "<paragraph()>"
+    price: "<randomFloat(2, 8, 13)>"
+    image: "<imageUrl(640, 480, 'Pizza')>"
+    type: "Boisson"
+  dessert_{1..5}:
+    name: "Dessert <word()>"
+    description: "<paragraph()>"
+    price: "<randomFloat(2, 8, 13)>"
+    image: "<imageUrl(640, 480, 'Pizza')>"
+    type: "Dessert"
+
+App\Entity\User:
+  user:
+    email: user@mail.com
+    roles: ["ROLE_USER"]
+    # password : password
+    password: \$2y\$13\$4nFdXU0byci3BWK1YwEopOrkJHJ0ShdIq9B9fmucjiL5dM9cy15Wy
+  admin:
+    email: admin@mail.com
+    roles: ["ROLE_ADMIN"]
+    # password : password
+    password: \$2y\$13\$4nFdXU0byci3BWK1YwEopOrkJHJ0ShdIq9B9fmucjiL5dM9cy15Wy
