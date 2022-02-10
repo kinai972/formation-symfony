@@ -6,7 +6,6 @@ use App\DTO\SearchDishCriteria;
 use App\Entity\Dish;
 use App\Form\DishType;
 use App\Form\SearchDishType;
-use App\DTO\SearchDishCriteria;
 use App\Repository\DishRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;

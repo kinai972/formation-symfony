@@ -4,7 +4,6 @@ namespace App\Repository;
 
 use App\DTO\SearchDishCriteria;
 use App\Entity\Dish;
-use App\DTO\SearchDishCriteria;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
