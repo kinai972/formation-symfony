@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\DTO\SearchDishCriteria;
 use App\Entity\Dish;
 use App\Form\DishType;
 use App\Form\SearchDishType;

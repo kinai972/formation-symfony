@@ -4,8 +4,9 @@ namespace App\Repository;
 
 use App\DTO\SearchDishCriteria;
 use App\Entity\Dish;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use App\DTO\SearchDishCriteria;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Dish|null find($id, $lockMode = null, $lockVersion = null)
